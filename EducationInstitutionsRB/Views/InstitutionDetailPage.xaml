@@ -1,0 +1,340 @@
+<Page
+    x:Class="EducationInstitutionsRB.Views.InstitutionDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:EducationInstitutionsRB.Converters"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel Padding="20" Spacing="20">
+
+            <!-- Кнопка возврата -->
+            <Button Content="← Назад к списку учреждений" 
+                    Click="BackButton_Click"
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                    Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+                    Padding="12,8"
+                    Margin="0,0,0,10"/>
+
+            <!-- Заголовок -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{Binding Institution.Name}" 
+                              FontSize="24" 
+                              FontWeight="Bold"
+                              TextWrapping="Wrap"/>
+
+                    <TextBlock Text="{Binding Institution.Type}" 
+                              FontSize="16"
+                              Foreground="Gray"/>
+
+                    <TextBlock Text="{Binding Institution.District.Region.Name}" 
+                              FontSize="14"
+                              Foreground="DarkGray"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Основная информация -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Основная информация" 
+                              FontSize="18" 
+                              FontWeight="SemiBold"/>
+
+                    <StackPanel Spacing="12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Адрес:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.Address}" TextWrapping="Wrap"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Директор:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.DirectorName}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Контакты:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.Contacts}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Email:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.Email}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Веб-сайт:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.Website}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Год основания:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.FoundationYear}"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Лицензия и аккредитация -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Лицензия и аккредитация" 
+                              FontSize="18" 
+                              FontWeight="SemiBold"/>
+
+                    <StackPanel Spacing="12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Номер лицензии:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.LicenseNumber}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Срок действия:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.LicenseExpiryDisplay}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Категория аккредитации:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.AccreditationCategory}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Форма собственности:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.OwnershipType}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Язык обучения:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.LanguageOfEducation}"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Статистика -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+        BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Статистика" 
+                  FontSize="18" 
+                  FontWeight="SemiBold"/>
+
+                    <StackPanel Spacing="12">
+                        <!-- Первая строка -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Учащихся:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.StudentCount}"/>
+
+                            <TextBlock Grid.Column="2" Text="Административный персонал:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Institution.AdministrativeStaffCount}"/>
+                        </Grid>
+
+                        <!-- Вторая строка -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Принято:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.AdmittedCount}"/>
+
+                            <TextBlock Grid.Column="2" Text="Соотношение:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Institution.TeacherStudentRatio}"/>
+                        </Grid>
+
+                        <!-- Третья строка -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Отчислено:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.ExpelledCount}"/>
+
+                            <TextBlock Grid.Column="2" Text="Учебных кабинетов:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Institution.ClassroomCount}"/>
+                        </Grid>
+
+                        <!-- Четвертая строка -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Педагогов:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.TeacherCount}"/>
+
+                            <TextBlock Grid.Column="2" Text="Компьютеров:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Institution.ComputerCount}"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Инфраструктура -->
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Инфраструктура" 
+                              FontSize="18" 
+                              FontWeight="SemiBold"/>
+
+                    <StackPanel Spacing="12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Общая площадь:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.TotalArea}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Спортивный зал:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" 
+                                       Text="{Binding Institution.HasSportsHall, Converter={StaticResource BooleanToYesNoConverter}}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Столовая:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" 
+                                       Text="{Binding Institution.HasDiningRoom, Converter={StaticResource BooleanToYesNoConverter}}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Библиотека:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" 
+                                       Text="{Binding Institution.HasLibrary, Converter={StaticResource BooleanToYesNoConverter}}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Специализация:" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Institution.Specialization}" TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Образовательные программы -->
+                    <StackPanel Spacing="8" Margin="0,12,0,0">
+                        <TextBlock Text="Образовательные программы:" FontWeight="SemiBold"/>
+                        <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" 
+                                CornerRadius="4" Padding="12">
+                            <TextBlock Text="{Binding Institution.EducationalPrograms}" 
+                                       TextWrapping="Wrap"
+                                       FontSize="14"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Кнопки действий -->
+            <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                <Button Content="✏️ Редактировать" 
+                        Click="EditButton_Click"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        Foreground="White"
+                        Padding="16,8"
+                        MinWidth="120"/>
+
+                <Button Content="🗑️ Удалить" 
+                        Click="DeleteButton_Click"
+                        Background="#d13438"
+                        Foreground="White"
+                        Padding="16,8"
+                        MinWidth="120"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

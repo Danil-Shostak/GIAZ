@@ -1,0 +1,231 @@
+<ContentDialog
+    x:Class="EducationInstitutionsRB.Views.ExtendedInstitutionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:EducationInstitutionsRB.Converters"
+    PrimaryButtonText="Сохранить"
+    CloseButtonText="Отмена"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    DefaultButton="Primary"
+    Width="800"
+    MaxWidth="800"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
+        <converters:StringToDecimalConverter x:Key="StringToDecimalConverter"/>
+        <converters:StringToIntConverter x:Key="StringToIntConverter"/>
+    </ContentDialog.Resources>
+
+    <ScrollViewer MaxHeight="700" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="16" Padding="0,0,8,0">
+            <TextBlock x:Name="DialogTitle" 
+                       Text="Добавить учреждение" 
+                       FontSize="20" 
+                       FontWeight="SemiBold"/>
+
+            <TextBlock Text="Поля, отмеченные *, обязательны для заполнения" 
+                       FontStyle="Italic" Foreground="Gray" FontSize="12"/>
+
+            <!-- Вкладки для организации формы -->
+            <TabView TabStripFooter=" ">
+                <TabViewItem Header="Основная информация" Width="180">
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12" Padding="0,0,8,0">
+                            <TextBox Header="Название учреждения *" 
+                                     Text="{x:Bind Institution.Name, Mode=TwoWay}"
+                                     PlaceholderText="Введите полное название"/>
+
+                            <ComboBox Header="Тип учреждения *" 
+                                      ItemsSource="{x:Bind InstitutionTypes}" 
+                                      SelectedItem="{x:Bind Institution.Type, Mode=TwoWay}"
+                                      PlaceholderText="Выберите тип"/>
+
+                            <TextBox Header="Адрес *" 
+                                     Text="{x:Bind Institution.Address, Mode=TwoWay}"
+                                     PlaceholderText="Юридический адрес"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Height="60"/>
+
+                            <TextBox Header="ФИО директора *" 
+                                     Text="{x:Bind Institution.DirectorName, Mode=TwoWay}"
+                                     PlaceholderText="Иванов Иван Иванович"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Контактный телефон *" 
+                                         Text="{x:Bind Institution.Contacts, Mode=TwoWay}"
+                                         PlaceholderText="+375-XX-XXX-XX-XX"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Header="Email" 
+                                         Text="{x:Bind Institution.Email, Mode=TwoWay}"
+                                         PlaceholderText="email@example.com"/>
+                            </Grid>
+
+                            <TextBox Header="Веб-сайт" 
+                                     Text="{x:Bind Institution.Website, Mode=TwoWay}"
+                                     PlaceholderText="https://example.com"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabViewItem>
+
+                <TabViewItem Header="Лицензия и статус" Width="180">
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12" Padding="0,0,8,0">
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Номер лицензии" 
+                                         Text="{x:Bind Institution.LicenseNumber, Mode=TwoWay}"
+                                         PlaceholderText="12345-Л"/>
+
+                                <DatePicker Grid.Column="1" 
+                                            Header="Срок действия лицензии" 
+                                            Date="{x:Bind Institution.LicenseExpiryDate, Mode=TwoWay, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"/>
+                            </Grid>
+
+                            <ComboBox Header="Категория аккредитации" 
+                                      ItemsSource="{x:Bind AccreditationCategories}" 
+                                      SelectedItem="{x:Bind Institution.AccreditationCategory, Mode=TwoWay}"
+                                      PlaceholderText="Выберите категорию"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <ComboBox Grid.Column="0" 
+                                          Header="Форма собственности" 
+                                          ItemsSource="{x:Bind OwnershipTypes}" 
+                                          SelectedItem="{x:Bind Institution.OwnershipType, Mode=TwoWay}"/>
+
+                                <ComboBox Grid.Column="1" 
+                                          Header="Язык обучения" 
+                                          ItemsSource="{x:Bind LanguageTypes}" 
+                                          SelectedItem="{x:Bind Institution.LanguageOfEducation, Mode=TwoWay}"/>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Год основания" 
+                                         Text="{x:Bind Institution.FoundationYear, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                         PlaceholderText="1990"/>
+
+                                <ComboBox Grid.Column="1" 
+                                          Header="Статус учреждения" 
+                                          ItemsSource="{x:Bind StatusTypes}" 
+                                          SelectedItem="{x:Bind Institution.InstitutionStatus, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabViewItem>
+
+                <TabViewItem Header="Статистика" Width="120">
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12" Padding="0,0,8,0">
+                            <TextBlock Text="Контингент учащихся" FontWeight="SemiBold"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Общее количество учащихся" 
+                                         Text="{x:Bind Institution.StudentCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Header="Принято в этом году" 
+                                         Text="{x:Bind Institution.AdmittedCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Отчислено в этом году" 
+                                         Text="{x:Bind Institution.ExpelledCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Header="Количество классов" 
+                                         Text="{x:Bind Institution.ClassroomCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+                            </Grid>
+
+                            <TextBlock Text="Персонал" FontWeight="SemiBold" Margin="0,8,0,0"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Педагогических работников" 
+                                         Text="{x:Bind Institution.TeacherCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Header="Административный персонал" 
+                                         Text="{x:Bind Institution.AdministrativeStaffCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabViewItem>
+
+                <TabViewItem Header="Инфраструктура" Width="140">
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12" Padding="0,0,8,0">
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <TextBox Grid.Column="0" 
+                                         Header="Общая площадь (м²)" 
+                                         Text="{x:Bind Institution.TotalArea, Mode=TwoWay, Converter={StaticResource StringToDecimalConverter}}"
+                                         PlaceholderText="0.0"/>
+
+                                <TextBox Grid.Column="1" 
+                                         Header="Количество компьютеров" 
+                                         Text="{x:Bind Institution.ComputerCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"/>
+                            </Grid>
+
+                            <TextBlock Text="Наличие помещений:" FontWeight="SemiBold"/>
+
+                            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,8,0,0">
+                                <CheckBox Content="Спортивный зал" 
+                                          IsChecked="{x:Bind Institution.HasSportsHall, Mode=TwoWay}"/>
+                                <CheckBox Content="Столовая" 
+                                          IsChecked="{x:Bind Institution.HasDiningRoom, Mode=TwoWay}"/>
+                                <CheckBox Content="Библиотека" 
+                                          IsChecked="{x:Bind Institution.HasLibrary, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                            <TextBox Header="Специализация" 
+                                     Text="{x:Bind Institution.Specialization, Mode=TwoWay}"
+                                     PlaceholderText="Математическая, языковая и т.д."
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Height="60"/>
+
+                            <TextBox Header="Образовательные программы" 
+                                     Text="{x:Bind Institution.EducationalPrograms, Mode=TwoWay}"
+                                     PlaceholderText="Описание программ обучения"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Height="80"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabViewItem>
+            </TabView>
+
+            <!-- Регион и район -->
+            <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" 
+                    Padding="12" CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Географическая привязка *" FontWeight="SemiBold"/>
+
+                    <ComboBox Header="Область *" 
+                              x:Name="RegionCombo"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Id"
+                              SelectionChanged="RegionCombo_SelectionChanged"
+                              PlaceholderText="Выберите область"/>
+
+                    <AutoSuggestBox Header="Район *" 
+                                    x:Name="DistrictSuggestBox"
+                                    PlaceholderText="Начните вводить название района"
+                                    Text="{x:Bind DistrictSearchText, Mode=TwoWay}"
+                                    QueryIcon="Find"
+                                    TextChanged="DistrictSuggestBox_TextChanged"
+                                    SuggestionChosen="DistrictSuggestBox_SuggestionChosen"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

@@ -1,0 +1,156 @@
+<Page
+    x:Class="EducationInstitutionsRB.Views.AdminPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <StackPanel Grid.Row="0" Padding="20" Spacing="15">
+            <TextBlock Text="Администрирование" FontSize="24" FontWeight="Bold"/>
+            <TextBlock Text="Управление справочниками областей и районов"/>
+        </StackPanel>
+
+        <!-- Контент -->
+        <Grid Grid.Row="1" Padding="20,0,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Панель управления областями -->
+            <Border Grid.Column="0" 
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Управление областями" FontSize="18" FontWeight="SemiBold"/>
+
+                    <Button Content="➕ Добавить область" 
+                            Command="{x:Bind ViewModel.AddRegionCommand}"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                            Foreground="White"/>
+
+                    <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                            BorderThickness="0,1,0,0" 
+                            Padding="0,8,0,0">
+                        <ListView ItemsSource="{x:Bind ViewModel.Regions, Mode=OneWay}"
+                                  SelectionMode="Single"
+                                  HorizontalAlignment="Stretch"
+                                  MaxHeight="400"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto,Auto" 
+                                          Padding="8" 
+                                          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                                          BorderThickness="0,0,0,1">
+
+                                        <TextBlock Grid.Column="0" 
+                                                   Text="{Binding Name}" 
+                                                   VerticalAlignment="Center"
+                                                   FontSize="14"/>
+
+                                        <Button Grid.Column="1" 
+                                                Content="✏️" 
+                                                Tag="{Binding}"
+                                                Click="EditRegionButton_Click"
+                                                Margin="4,0"
+                                                Background="Transparent"
+                                                BorderThickness="0"/>
+
+                                        <Button Grid.Column="2" 
+                                                Content="🗑️" 
+                                                Tag="{Binding}"
+                                                Click="DeleteRegionButton_Click"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="Red"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Панель управления районами -->
+            <Border Grid.Column="2" 
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                    BorderThickness="1" CornerRadius="8" Padding="16">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Управление районами" FontSize="18" FontWeight="SemiBold"/>
+
+                    <Button Content="➕ Добавить район" 
+                            Command="{x:Bind ViewModel.AddDistrictCommand}"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                            Foreground="White"/>
+
+                    <ComboBox Header="Область" 
+                              ItemsSource="{x:Bind ViewModel.Regions, Mode=OneWay}"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Id"
+                              SelectedValue="{x:Bind ViewModel.SelectedRegionId, Mode=TwoWay}"
+                              PlaceholderText="Выберите область"/>
+
+                    <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                            BorderThickness="0,1,0,0" 
+                            Padding="0,8,0,0">
+                        <ListView ItemsSource="{x:Bind ViewModel.Districts, Mode=OneWay}"
+                                  SelectionMode="Single"
+                                  HorizontalAlignment="Stretch"
+                                  MaxHeight="400"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto,Auto" 
+                                          Padding="8" 
+                                          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                                          BorderThickness="0,0,0,1">
+
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                                            <TextBlock Text="{Binding Name}" 
+                                                       VerticalAlignment="Center"
+                                                       FontSize="14"/>
+                                            <TextBlock Text="{Binding Region.Name}" 
+                                                       VerticalAlignment="Center"
+                                                       FontSize="12"
+                                                       Foreground="Gray"/>
+                                        </StackPanel>
+
+                                        <Button Grid.Column="1" 
+                                                Content="✏️" 
+                                                Tag="{Binding}"
+                                                Click="EditDistrictButton_Click"
+                                                Margin="4,0"
+                                                Background="Transparent"
+                                                BorderThickness="0"/>
+
+                                        <Button Grid.Column="2" 
+                                                Content="🗑️" 
+                                                Tag="{Binding}"
+                                                Click="DeleteDistrictButton_Click"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="Red"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

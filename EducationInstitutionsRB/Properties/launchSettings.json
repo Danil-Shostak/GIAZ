@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EducationInstitutionsRB (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EducationInstitutionsRB (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

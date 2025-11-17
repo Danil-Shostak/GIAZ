@@ -1,0 +1,14 @@
+<Page
+    x:Class="EducationInstitutionsRB.Views.ImportPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Padding="20" Spacing="15">
+        <TextBlock Text="Импорт данных" FontSize="24" FontWeight="Bold"/>
+        <TextBlock Text="Раздел для импорта данных из Word документов"/>
+        <Button Content="Выбрать файл .docx" Width="200"/>
+    </StackPanel>
+</Page>

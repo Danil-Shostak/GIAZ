@@ -1,0 +1,57 @@
+<Application
+    x:Class="EducationInstitutionsRB.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EducationInstitutionsRB"
+    xmlns:converters="using:EducationInstitutionsRB.Converters">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="ms-appx:///Styles/Colors.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/TextStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Современные стили для навигации -->
+            <Style x:Key="ModernNavigationViewStyle" TargetType="NavigationView">
+                <Setter Property="IsSettingsVisible" Value="False"/>
+                <Setter Property="IsBackButtonVisible" Value="Collapsed"/>
+                <Setter Property="PaneDisplayMode" Value="LeftCompact"/>
+                <Setter Property="OpenPaneLength" Value="240"/>
+                <Setter Property="CompactPaneLength" Value="48"/>
+            </Style>
+
+            <Style x:Key="ModernNavItemStyle" TargetType="NavigationViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Icon" Value="{Binding Icon}"/>
+                <Setter Property="Content" Value="{Binding Content}"/>
+            </Style>
+
+            <!-- Стиль для карточек -->
+            <Style x:Key="ModernCardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16"/>
+                <Setter Property="Margin" Value="8"/>
+            </Style>
+
+            <!-- Конвертеры -->
+            <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
+            <converters:CountToEnabledConverter x:Key="CountToEnabledConverter"/>
+            <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
+            <converters:EmptyCountToVisibilityConverter x:Key="EmptyCountToVisibilityConverter"/>
+            <converters:FormatConverter x:Key="FormatConverter"/>
+            <converters:IntConverter x:Key="IntConverter"/>
+            <converters:IntToStringConverter x:Key="IntToStringConverter"/>
+            <converters:StringToDecimalConverter x:Key="StringToDecimalConverter"/>
+            <converters:StringToIntConverter x:Key="StringToIntConverter"/>
+            <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+            <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
