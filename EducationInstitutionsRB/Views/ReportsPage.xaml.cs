@@ -173,27 +173,6 @@ public sealed partial class ReportsPage : Page
         ClearDistrictButton.Visibility = Visibility.Collapsed;
     }
 
-    private void ClearAllButton_Click(object sender, RoutedEventArgs e)
-    {
-        // Очистка всех полей ввода
-        AllRepublicCheckBox.IsChecked = false;
-        RegionCombo.SelectedIndex = -1;
-        DistrictCombo.SelectedIndex = -1;
-        ReportTypeCombo.SelectedIndex = 0;
-
-        // Очистка кнопок очистки
-        ClearRegionButton.Visibility = Visibility.Collapsed;
-        ClearDistrictButton.Visibility = Visibility.Collapsed;
-
-        // Очистка результатов
-        HideAllReports();
-        ClearTotals();
-
-        // Сброс информации
-        ReportInfoText.Text = "Выберите параметры для генерации отчёта";
-        NoDataMessage.Visibility = Visibility.Collapsed;
-    }
-
     private async void GenerateButton_Click(object sender, RoutedEventArgs e)
     {
         await GenerateReportAsync();
@@ -319,13 +298,13 @@ public sealed partial class ReportsPage : Page
     {
         var totalStudents = institutions.Sum(i => i.StudentCount);
         var totalTeachers = institutions.Sum(i => i.TeacherCount);
-        var totalClassrooms = institutions.Sum(i => i.ClassroomCount);
+        var totalArea = institutions.Sum(i => i.TotalArea);
 
         var avgRatio = totalTeachers > 0 ? (double)totalStudents / totalTeachers : 0;
 
         TotalStudentsText.Text = totalStudents.ToString("N0");
         TotalTeachersText.Text = totalTeachers.ToString("N0");
-        TotalClassroomsText.Text = totalClassrooms.ToString("N0");
+        TotalAreaText.Text = totalArea.ToString("N0");
         TotalRatioText.Text = avgRatio.ToString("F1");
     }
 
@@ -333,19 +312,15 @@ public sealed partial class ReportsPage : Page
     {
         var totalTeachers = institutions.Sum(i => i.TeacherCount);
         var totalAdminStaff = institutions.Sum(i => i.AdministrativeStaffCount);
-        var totalStaff = institutions.Sum(i => i.StaffCount);
+        var totalAllStaff = institutions.Sum(i => i.StaffCount);
         var totalAdmitted = institutions.Sum(i => i.AdmittedCount);
         var totalExpelled = institutions.Sum(i => i.ExpelledCount);
 
-        // Можно добавить отображение этих итогов если нужно
-    }
-
-    private void ClearTotals()
-    {
-        TotalStudentsText.Text = "0";
-        TotalTeachersText.Text = "0";
-        TotalClassroomsText.Text = "0";
-        TotalRatioText.Text = "0";
+        TotalTeachersStaffText.Text = totalTeachers.ToString("N0");
+        TotalAdminStaffText.Text = totalAdminStaff.ToString("N0");
+        TotalAllStaffText.Text = totalAllStaff.ToString("N0");
+        TotalAdmittedText.Text = totalAdmitted.ToString("N0");
+        TotalExpelledText.Text = totalExpelled.ToString("N0");
     }
 
     private void ShowNoDataMessage(string message)
@@ -354,5 +329,19 @@ public sealed partial class ReportsPage : Page
         NoDataMessage.Visibility = Visibility.Visible;
         NoDataMessageText.Text = message;
         ClearTotals();
+    }
+
+    private void ClearTotals()
+    {
+        TotalStudentsText.Text = "0";
+        TotalTeachersText.Text = "0";
+        TotalAreaText.Text = "0";
+        TotalRatioText.Text = "0";
+
+        TotalTeachersStaffText.Text = "0";
+        TotalAdminStaffText.Text = "0";
+        TotalAllStaffText.Text = "0";
+        TotalAdmittedText.Text = "0";
+        TotalExpelledText.Text = "0";
     }
 }

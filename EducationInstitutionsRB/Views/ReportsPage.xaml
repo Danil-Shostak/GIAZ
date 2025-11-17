@@ -41,7 +41,7 @@
                                       DisplayMemberPath="Name"/>
                             <Button Content="✕" x:Name="ClearRegionButton"
                                     Click="ClearRegionButton_Click"
-                                    Width="28" Height="28"
+                                    Width="35" Height="35"
                                     FontSize="14" FontWeight="Bold"
                                     ToolTipService.ToolTip="Очистить область"
                                     Visibility="Collapsed"/>
@@ -57,7 +57,7 @@
                                       IsEnabled="False"/>
                             <Button Content="✕" x:Name="ClearDistrictButton"
                                     Click="ClearDistrictButton_Click"
-                                    Width="28" Height="28"
+                                    Width="35" Height="35"
                                     FontSize="14" FontWeight="Bold"
                                     ToolTipService.ToolTip="Очистить район"
                                     Visibility="Collapsed"/>
